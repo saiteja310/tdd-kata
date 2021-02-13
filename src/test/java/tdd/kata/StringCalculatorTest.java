@@ -24,4 +24,10 @@ public class StringCalculatorTest {
         assertEquals(3, stringCalculator.add("1,2"));
     }
 	
+	@Test 
+	public void shouldReturnSumForAnyNumbers() {
+        StringCalculator stringCalculator = new StringCalculator();
+        assertEquals(6, stringCalculator.add("1,2,3"));
+    }
+	
 }

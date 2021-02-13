@@ -14,7 +14,8 @@ public class StringCalculator {
 	}
 	
 	private IntStream split(String numbers) {
-		String[] data = numbers.split(",");
+		String regex = ",|\n";
+		String[] data = numbers.split(regex);
 		return convertToInt(data);
 	}
 	

@@ -11,4 +11,17 @@ public class StringCalculatorTest {
         StringCalculator stringCalculator = new StringCalculator();
         assertEquals(0, stringCalculator.add(""));
     }
+	
+	@Test 
+	public void shouldReturnSumForOneNumber() {
+        StringCalculator stringCalculator = new StringCalculator();
+        assertEquals(1, stringCalculator.add("1"));
+    }
+	
+	@Test 
+	public void shouldReturnSumForTwoNumbers() {
+        StringCalculator stringCalculator = new StringCalculator();
+        assertEquals(3, stringCalculator.add("1,2"));
+    }
+	
 }

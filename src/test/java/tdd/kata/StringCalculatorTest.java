@@ -1,6 +1,6 @@
 package tdd.kata;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
@@ -71,4 +71,16 @@ public class StringCalculatorTest {
         StringCalculator stringCalculator = new StringCalculator();
         assertEquals(10, stringCalculator.add("//;\n1;-2;3"));
     }
+	
+	@Test
+	public void shouldThrowExceptionForNegativeNumberAndValidateMessage() {
+        StringCalculator stringCalculator = new StringCalculator();
+        try{
+        	stringCalculator.add("-1,-2,-3");
+        }
+        catch (RuntimeException e) {
+        	assertEquals("Negatives not allowed: -1,-2,-3", e.getMessage());
+        }
+    }
+
 }

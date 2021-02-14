@@ -1,7 +1,7 @@
 package tdd.kata;
 
 import java.util.Arrays;
-import java.util.OptionalInt;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class StringCalculator {
@@ -14,7 +14,7 @@ public class StringCalculator {
 		}
 		
 		int[] integers = split(numbers);
-		invalidateNegativeNumber(integers);
+		invalidateNegativeNumbers(integers);
 		return IntStream.of(integers).sum();
 	}
 
@@ -34,10 +34,10 @@ public class StringCalculator {
 	
 	// Method to validate that Integer array doesn't contain any negative numbers.
 	// Throws Exception if the array contains negative numbers
-	private void invalidateNegativeNumber(int[] integers) {
-		OptionalInt negativeNumber = IntStream.of(integers).filter(e -> e < 0).findFirst();
-		if(negativeNumber.isPresent()) {
-			throw new NegativeNumberException(negativeNumber.getAsInt());
+	private void invalidateNegativeNumbers(int[] integers) {
+		int[] negativeNumbers = IntStream.of(integers).filter(e -> e < 0).toArray();
+		if(negativeNumbers.length > 0) {
+			throw new NegativeNumberException(negativeNumbers);
 		}
 	}
 	
@@ -60,7 +60,7 @@ class NegativeNumberException extends RuntimeException {
 
 	private static final long serialVersionUID = -5068468626860816079L;
 
-	public NegativeNumberException(int number) {
-		super("Negatives not allowed: " + number);
+	public NegativeNumberException(int[] array) {
+		super("Negatives not allowed: " + IntStream.of(array).mapToObj(String::valueOf).collect(Collectors.joining(",")));
 	}
 }

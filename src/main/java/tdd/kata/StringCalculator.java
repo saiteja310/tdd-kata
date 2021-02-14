@@ -1,6 +1,10 @@
 package tdd.kata;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -8,7 +12,7 @@ public class StringCalculator {
 	
 	private String defaultDelimiterRegex = ",|\n";
 	private int addCalledCount = 0;
-	
+
 	public int add(String numbers) {
 		if(numbers.isEmpty()) {
 			return 0;
@@ -24,6 +28,7 @@ public class StringCalculator {
 				.sum();
 	}
 	
+	// Returns number of times Add Method has been called
 	public int getCalledCount() {
 		return addCalledCount;
 	}
@@ -34,14 +39,40 @@ public class StringCalculator {
 		String delimiterRegex = defaultDelimiterRegex;
 		if(hasCustomDelimiter(numbers)) {
 			String[] splitterArray = numbers.split("\n");
+
 			delimiterRegex = splitterArray[0].substring(2);
 			numbers = splitterArray[1];
+			if(areMultipleDelimiters(delimiterRegex)) {
+				delimiterRegex = splitWithMultipleDelimiters(delimiterRegex);
+			}
 		}
 		
 		String[] data = numbers.split(delimiterRegex);
 		return convertToInt(data);
 	}
 	
+	// Finds all the delimiters between "[]" and returns a combined regex. 
+	private String splitWithMultipleDelimiters(String delimiterRegex) {
+		Pattern p = Pattern.compile("\\[(.*?)\\]");
+		Matcher m = p.matcher(delimiterRegex);
+		List<String> matches = new ArrayList<>();
+		
+		while(m.find()) {
+			matches.add(escapeSpecialCharacters(m.group(1)));
+		}
+		
+		return matches.stream().collect(Collectors.joining("|"));
+	}
+	
+	private String escapeSpecialCharacters(String s)
+	{
+	    return s.replaceAll("[\\W]", "\\\\$0");
+	}
+
+	private boolean areMultipleDelimiters(String delimiterRegex) {
+		return delimiterRegex.startsWith("[") && delimiterRegex.endsWith("]");
+	}
+
 	// Method to validate that Integer array doesn't contain any negative numbers.
 	// Throws Exception if the array contains negative numbers
 	private void invalidateNegativeNumbers(int[] integers) {

@@ -103,4 +103,28 @@ public class StringCalculatorTest {
         StringCalculator stringCalculator = new StringCalculator();
         assertEquals(1, stringCalculator.add("//;\n1;2000;1001"));
     }
+	
+	@Test
+	public void shouldHonourDelimitersOfAnyLength() {
+        StringCalculator stringCalculator = new StringCalculator();
+        assertEquals(6, stringCalculator.add("//[***]\n1***2***3"));
+    }
+	
+	@Test
+	public void shouldHonourDelimitersOfMultipleDelimiters() {
+        StringCalculator stringCalculator = new StringCalculator();
+        assertEquals(6, stringCalculator.add("//[*][%]\n1*2%3"));
+    }
+	
+	@Test
+	public void shouldHonourDelimitersOfMultipleDelimitersOfAnyLength1() {
+        StringCalculator stringCalculator = new StringCalculator();
+        assertEquals(6, stringCalculator.add("//[**][%%]\n1**2%%3"));
+    }
+	
+	@Test
+	public void shouldHonourDelimitersOfMultipleDelimitersOfAnyLength2() {
+        StringCalculator stringCalculator = new StringCalculator();
+        assertEquals(10, stringCalculator.add("//[*||*][%--%]\n1*||*2*||*3%--%4"));
+    }
 }

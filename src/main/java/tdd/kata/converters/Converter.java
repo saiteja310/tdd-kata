@@ -4,6 +4,8 @@ import java.util.Arrays;
 
 public class Converter {
 	
+	Converter() { }
+	
 	public static int[] convertToInt(String[] numbers) {
 		return Arrays.stream(numbers)
 				.mapToInt(Integer::parseInt)

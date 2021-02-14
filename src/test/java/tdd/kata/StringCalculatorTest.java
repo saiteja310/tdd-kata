@@ -83,4 +83,18 @@ public class StringCalculatorTest {
         }
     }
 
+	@Test
+	public void shouldReturnProperCountForSingleAdd() {
+        StringCalculator stringCalculator = new StringCalculator();
+        stringCalculator.add("1");
+        assertEquals(1, stringCalculator.getCalledCount());
+    }
+	
+	@Test
+	public void shouldReturnProperCountOfMultipleAddCalls() {
+        StringCalculator stringCalculator = new StringCalculator();
+        stringCalculator.add("1");
+        stringCalculator.add("2");
+        assertEquals(2, stringCalculator.getCalledCount());
+    }
 }

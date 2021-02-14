@@ -7,15 +7,22 @@ import java.util.stream.IntStream;
 public class StringCalculator {
 	
 	private String defaultDelimiterRegex = ",|\n";
+	private int addCalledCount = 0;
 	
 	public int add(String numbers) {
 		if(numbers.isEmpty()) {
 			return 0;
 		}
 		
+		addCalledCount++;
+		
 		int[] integers = split(numbers);
 		invalidateNegativeNumbers(integers);
 		return IntStream.of(integers).sum();
+	}
+	
+	public int getCalledCount() {
+		return addCalledCount;
 	}
 
 	// Helper method to split the strings based on various types of delimiters

@@ -18,7 +18,10 @@ public class StringCalculator {
 		
 		int[] integers = split(numbers);
 		invalidateNegativeNumbers(integers);
-		return IntStream.of(integers).sum();
+		return IntStream
+				.of(integers)
+				.filter(e -> e < 1001)
+				.sum();
 	}
 	
 	public int getCalledCount() {

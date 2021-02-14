@@ -31,33 +31,44 @@ public class StringCalculatorTest {
     }
 	
 	@Test 
-	public void shouldReturnSumForNewLineDelimeter() {
+	public void shouldReturnSumForNewLineDelimiter() {
         StringCalculator stringCalculator = new StringCalculator();
         assertEquals(6, stringCalculator.add("1\n2\n3"));
     }
 	
 	@Test 
-	public void shouldReturnSumForNewLineAndCommaDelimeter() {
+	public void shouldReturnSumForNewLineAndCommaDelimiter() {
         StringCalculator stringCalculator = new StringCalculator();
         assertEquals(6, stringCalculator.add("1\n2,3"));
     }
 	
 	@Test 
-	public void shouldReturnSumForCustomDelimeter() {
+	public void shouldReturnSumForCustomDelimiter() {
         StringCalculator stringCalculator = new StringCalculator();
         assertEquals(3, stringCalculator.add("//;\n1;2"));
     }
 	
 	@Test 
-	public void shouldReturnSumForCustomDelimeterAndThreeNumbers() {
+	public void shouldReturnSumForCustomDelimiterAndThreeNumbers() {
         StringCalculator stringCalculator = new StringCalculator();
         assertEquals(6, stringCalculator.add("//;\n1;2;3"));
     }
 	
 	@Test 
-	public void shouldReturnSumForSpaceDelimeterAndThreeNumbers() {
+	public void shouldReturnSumForSpaceDelimiterAndThreeNumbers() {
         StringCalculator stringCalculator = new StringCalculator();
         assertEquals(10, stringCalculator.add("// \n1 2 3 4"));
     }
 	
+	@Test(expected = NegativeNumberException.class)
+	public void shouldThrowExceptionForNegativeNumber() {
+        StringCalculator stringCalculator = new StringCalculator();
+        assertEquals(10, stringCalculator.add("-1\n2\n3"));
+    }
+	
+	@Test(expected = NegativeNumberException.class)
+	public void shouldThrowExceptionForNegativeNumberWithCustomDelimiter() {
+        StringCalculator stringCalculator = new StringCalculator();
+        assertEquals(10, stringCalculator.add("//;\n1;-2;3"));
+    }
 }
